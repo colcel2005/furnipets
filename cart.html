@@ -197,7 +197,7 @@
         
                       <div class="row">
                         <div class="col-md-12">
-                          <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='checkout.html'">Proceed To Checkout</button>
+                          <div id="paypal-button-container"></div>
                         </div>
                       </div>
                     </div>
@@ -317,6 +317,30 @@
 		<script src="js/bootstrap.bundle.min.js"></script>
 		<script src="js/tiny-slider.js"></script>
 		<script src="js/custom.js"></script>
+		<script src="https://www.paypal.com/sdk/js?client-id=AUjJqkAXImZ_Y2iPaY_KaDkIqVu1aA3EsbSJG9DxBiMpw0i9X6TkFoPRXD9dvVsOR9OlgGX3cCvBnNNb&currency=USD"></script>
+		<script>
+			paypal.Buttons({
+				style: {
+					layout: 'vertical',
+					shape: 'rect'
+				},
+				createOrder: function(data, actions) {
+					return actions.order.create({
+						purchase_units: [{
+							amount: {
+								currency_code: 'USD',
+								value: '128.00'
+							}
+						}]
+					});
+				},
+				onApprove: function(data, actions) {
+					return actions.order.capture().then(function(details) {
+						alert('Payment successful!');
+					});
+				}
+			}).render('#paypal-button-container');
+		</script>
 	</body>
 
 </html>

@@ -388,10 +388,23 @@
 							renderCart();
 						}
 					} else if (e.target.classList.contains('remove')) {
+						e.preventDefault();
 						const index = parseInt(e.target.dataset.index);
+						const row = e.target.closest('tr');
+						row.remove();
 						cart.splice(index, 1);
 						saveCart();
-						renderCart();
+						updateTotals();
+						// Update data-index for remaining buttons
+						const remainingRows = document.querySelectorAll('.site-blocks-table tbody tr');
+						remainingRows.forEach((tr, newIndex) => {
+							const increaseBtn = tr.querySelector('.increase');
+							const decreaseBtn = tr.querySelector('.decrease');
+							const removeBtn = tr.querySelector('.remove');
+							if (increaseBtn) increaseBtn.dataset.index = newIndex;
+							if (decreaseBtn) decreaseBtn.dataset.index = newIndex;
+							if (removeBtn) removeBtn.dataset.index = newIndex;
+						});
 					}
 				});
 			});

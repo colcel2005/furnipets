@@ -20,8 +20,8 @@
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 		<link href="css/tiny-slider.css" rel="stylesheet">
-		<script src="https://www.paypal.com/sdk/js?client-id=AUjJqkAXImZ_Y2iPaY_KaDkIqVu1aA3EsbSJG9DxBiMpw0i9X6TkFoPRXD9dvVsOR9OlgGX3cCvBnNNb&currency=USD"></script>
-		<title>PetShop - Shopping Cart</title>
+		<link href="css/style.css" rel="stylesheet">
+		<title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
 	</head>
 
 	<body>
@@ -30,7 +30,7 @@
 		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
 			<div class="container">
-				<a class="navbar-brand" href="index.html">PetShop<span>.</span></a>
+				<a class="navbar-brand" href="index.html">Furni<span>.</span></a>
 
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -99,9 +99,9 @@
                             <img src="images/product-1.png" alt="Image" class="img-fluid">
                           </td>
                           <td class="product-name">
-                            <h2 class="h5 text-black">Dog Bed</h2>
+                            <h2 class="h5 text-black">Product 1</h2>
                           </td>
-                          <td>$50.00</td>
+                          <td>$49.00</td>
                           <td>
                             <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
                               <div class="input-group-prepend">
@@ -114,7 +114,7 @@
                             </div>
         
                           </td>
-                          <td>$50.00</td>
+                          <td>$49.00</td>
                           <td><a href="#" class="btn btn-black btn-sm">X</a></td>
                         </tr>
         
@@ -123,9 +123,9 @@
                             <img src="images/product-2.png" alt="Image" class="img-fluid">
                           </td>
                           <td class="product-name">
-                            <h2 class="h5 text-black">Cat Scratcher</h2>
+                            <h2 class="h5 text-black">Product 2</h2>
                           </td>
-                          <td>$78.00</td>
+                          <td>$49.00</td>
                           <td>
                             <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
                               <div class="input-group-prepend">
@@ -138,7 +138,7 @@
                             </div>
         
                           </td>
-                          <td>$78.00</td>
+                          <td>$49.00</td>
                           <td><a href="#" class="btn btn-black btn-sm">X</a></td>
                         </tr>
                       </tbody>
@@ -183,7 +183,7 @@
                           <span class="text-black">Subtotal</span>
                         </div>
                         <div class="col-md-6 text-right">
-                          <strong class="text-black">$128.00</strong>
+                          <strong class="text-black">$230.00</strong>
                         </div>
                       </div>
                       <div class="row mb-5">
@@ -191,13 +191,13 @@
                           <span class="text-black">Total</span>
                         </div>
                         <div class="col-md-6 text-right">
-                          <strong class="text-black">$128.00</strong>
+                          <strong class="text-black">$230.00</strong>
                         </div>
                       </div>
         
                       <div class="row">
                         <div class="col-md-12">
-                          <div id="paypal-button-container"></div>
+                          <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='checkout.html'">Proceed To Checkout</button>
                         </div>
                       </div>
                     </div>
@@ -241,8 +241,8 @@
 
 				<div class="row g-5 mb-5">
 					<div class="col-lg-4">
-						<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">PetShop<span>.</span></a></div>
-						<p class="mb-4">Premium pet care accessories for dogs and cats. Quality products for your furry friends' comfort and health.</p>
+						<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Furni<span>.</span></a></div>
+						<p class="mb-4">Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant</p>
 
 						<ul class="list-unstyled custom-social">
 							<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
@@ -282,9 +282,9 @@
 
 							<div class="col-6 col-sm-6 col-md-3">
 								<ul class="list-unstyled">
-									<li><a href="#">Dog Bed</a></li>
-									<li><a href="#">Cat Scratcher</a></li>
-									<li><a href="#">Pet Toy</a></li>
+									<li><a href="#">Nordic Chair</a></li>
+									<li><a href="#">Kruzo Aero</a></li>
+									<li><a href="#">Ergonomic Chair</a></li>
 								</ul>
 							</div>
 						</div>
@@ -317,26 +317,6 @@
 		<script src="js/bootstrap.bundle.min.js"></script>
 		<script src="js/tiny-slider.js"></script>
 		<script src="js/custom.js"></script>
-		<script>
-			paypal.Buttons({
-				createOrder: function(data, actions) {
-					return actions.order.create({
-						purchase_units: [{
-							amount: {
-								currency_code: 'USD',
-								value: '128.00'
-							}
-						}]
-					});
-				},
-				onApprove: function(data, actions) {
-					return actions.order.capture().then(function(details) {
-						alert('Payment successful! Transaction completed by ' + details.payer.name.given_name);
-						console.log('Payment successful:', details);
-					});
-				}
-			}).render('#paypal-button-container');
-		</script>
 	</body>
 
 </html>

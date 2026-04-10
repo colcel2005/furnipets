@@ -79,121 +79,7 @@
 
 		<div class="untree_co-section product-section before-footer-section">
 		    <div class="container">
-		      	<div class="row">
-
-		      		<!-- Start Column 1 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="#">
-							<img src="images/product-3.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Nordic Chair</h3>
-							<strong class="product-price">$50.00</strong>
-
-							<span class="icon-cross">
-								<img src="images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div> 
-					<!-- End Column 1 -->
-						
-					<!-- Start Column 2 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="#">
-							<img src="images/product-1.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Nordic Chair</h3>
-							<strong class="product-price">$50.00</strong>
-
-							<span class="icon-cross">
-								<img src="images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div> 
-					<!-- End Column 2 -->
-
-					<!-- Start Column 3 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="#">
-							<img src="images/product-2.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Kruzo Aero Chair</h3>
-							<strong class="product-price">$78.00</strong>
-
-							<span class="icon-cross">
-								<img src="images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div>
-					<!-- End Column 3 -->
-
-					<!-- Start Column 4 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="#">
-							<img src="images/product-3.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Ergonomic Chair</h3>
-							<strong class="product-price">$43.00</strong>
-
-							<span class="icon-cross">
-								<img src="images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div>
-					<!-- End Column 4 -->
-
-
-					<!-- Start Column 1 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="#">
-							<img src="images/product-3.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Nordic Chair</h3>
-							<strong class="product-price">$50.00</strong>
-
-							<span class="icon-cross">
-								<img src="images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div> 
-					<!-- End Column 1 -->
-						
-					<!-- Start Column 2 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="#">
-							<img src="images/product-1.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Nordic Chair</h3>
-							<strong class="product-price">$50.00</strong>
-
-							<span class="icon-cross">
-								<img src="images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div> 
-					<!-- End Column 2 -->
-
-					<!-- Start Column 3 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="#">
-							<img src="images/product-2.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Kruzo Aero Chair</h3>
-							<strong class="product-price">$78.00</strong>
-
-							<span class="icon-cross">
-								<img src="images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div>
-					<!-- End Column 3 -->
-
-					<!-- Start Column 4 -->
-					<div class="col-12 col-md-4 col-lg-3 mb-5">
-						<a class="product-item" href="#">
-							<img src="images/product-3.png" class="img-fluid product-thumbnail">
-							<h3 class="product-title">Ergonomic Chair</h3>
-							<strong class="product-price">$43.00</strong>
-
-							<span class="icon-cross">
-								<img src="images/cross.svg" class="img-fluid">
-							</span>
-						</a>
-					</div>
-					<!-- End Column 4 -->
-
+		      	<div id="product-container" class="row">
 		      	</div>
 		    </div>
 		</div>
@@ -308,6 +194,61 @@
 		<script src="js/bootstrap.bundle.min.js"></script>
 		<script src="js/tiny-slider.js"></script>
 		<script src="js/custom.js"></script>
+		<script>
+			function addToCart(name, price, image) {
+				let cart = JSON.parse(localStorage.getItem('cart')) || [];
+				const existing = cart.find(item => item.name === name);
+				if (existing) {
+					existing.quantity++;
+				} else {
+					cart.push({name, price: parseFloat(price), quantity: 1, image});
+				}
+				localStorage.setItem('cart', JSON.stringify(cart));
+				alert('Added to cart');
+			}
+
+			fetch('productos - Hoja 1.csv')
+				.then(response => response.text())
+				.then(data => {
+					const lines = data.split('\n');
+					const headers = lines[0].split(',');
+					const products = lines.slice(1).map(line => {
+						const values = line.split(',');
+						return headers.reduce((obj, header, index) => {
+							obj[header.trim()] = values[index].trim();
+							return obj;
+						}, {});
+					}).filter(product => product.id);
+
+					const container = document.getElementById('product-container');
+					products.forEach(product => {
+						const col = document.createElement('div');
+						col.className = 'col-12 col-md-4 col-lg-3 mb-5';
+						col.innerHTML = `
+							<a class="product-item" href="#">
+								<img src="${product.image_url}" class="img-fluid product-thumbnail">
+								<h3 class="product-title">${product.name}</h3>
+								<strong class="product-price">$${parseFloat(product.price).toFixed(2)}</strong>
+								<span class="icon-cross" data-name="${product.name}" data-price="${product.price}" data-image="${product.image_url}">
+									<img src="images/cross.svg" class="img-fluid">
+								</span>
+							</a>
+						`;
+						container.appendChild(col);
+					});
+
+					document.addEventListener('click', (e) => {
+						if (e.target.closest('.icon-cross')) {
+							const span = e.target.closest('.icon-cross');
+							const name = span.dataset.name;
+							const price = span.dataset.price;
+							const image = span.dataset.image;
+							addToCart(name, price, image);
+						}
+					});
+				})
+				.catch(error => console.error('Error loading products:', error));
+		</script>
 	</body>
 
 </html>
